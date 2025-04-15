@@ -1,0 +1,452 @@
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <title>Kampfrichter*inneneinteilung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/fontawesome.min.css" integrity="sha512-v8QQ0YQ3H4K6Ic3PJkym91KoeNT5S3PnDKvqnwqFD1oiqIl653crGZplPdU5KKtHjO0QKcQ2aUlQZYjHczkmGw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/solid.min.css" integrity="sha512-DzC7h7+bDlpXPDQsX/0fShhf1dLxXlHuhPBkBo/5wJWRoTU6YL7moeiNoej6q3wh5ti78C57Tu1JwTNlcgHSjg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            /* display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            padding: 1rem;
+            font-family: sans-serif;
+            margin: 0; */
+        }
+
+        main {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            padding: 1rem;
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            /* max-width: 700px; */
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #f5f5f5;
+            position: sticky;
+            top: 0;
+        }
+
+        thead th.sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .sort-icon {
+            margin-left: 0.5em;
+            /* font-size: 0.85em; */
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        th.active .sort-icon {
+            opacity: 1;
+        }
+
+        /* Abwechselnde Zeilenfarben im Body */
+        tbody tr:nth-child(odd) {
+            background-color: #fafafa;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+
+        .button-group {
+            display: inline-flex;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .button-group button {
+            background-color: #f8f8f8;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .button-group button+button {
+            border-left: 1px solid #ccc;
+        }
+
+        .button-group button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .button-group button.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+
+        /* .freitag, .both {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Kampfrichter*inneneinteilung Landes 2025</h1>
+        <div class="filters">
+            <div class="button-group" id="shift-filter">
+                <button class="active" id="all-shifts">Alle Schichten/Bäder</button>
+                <button id="vormittags">Vormittags</button>
+                <button id="nachmittags">Nachmittags</button>
+                <button id="jun">Junior*innenbad</button>
+                <button id="sen">Senior*innenbad</button>
+            </div>
+        </div>
+        <p class="stand">Stand: <span id="date"></span></p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" data-key="vorname">Vorname  <i class="fa-solid fa-sort sort-icon"></i></th>
+                    <th>Nachname</th>
+                    <th class="freitag schicht">Schicht Freitag</th>
+                    <th class="sortable freitag position" data-key="freitag">Position Freitag  <i class="fa-solid fa-sort sort-icon"></i></th>
+                    <th class="both"></th>
+                    <th class="samstag bad">Bad Samstag</th>
+                    <th class="sortable samstag position" data-key="samstag">Position Samstag (ganztägig)  <i class="fa-solid fa-sort sort-icon"></i></th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+            const ths = document.querySelectorAll("th.sortable");
+            const sort = [
+            'Veranstaltungsleitung',
+            'Orga',
+            'Protokollführer',
+            'Veranstaltungssprecher',
+            'Mitgliedsbuchkontrolle',
+            'Startunterlagenkontrolle',
+            'Leiter Schiedsgericht',
+            'Schiedsgericht',
+            'WKL',
+            'WKL 1',
+            'WKL 2',
+            'WKL 3',
+            'WKL 4',
+            'WKL 5',
+            'Hospitation gemäß Plan',
+            'Auswertung (Protokoll)',
+            'Auswertung',
+            'Auswertung (praktische Prüfung)',
+            'Starter',
+            'Schwimmrichter 1',
+            'Schwimmrichter 1/2',
+            'Schwimmrichter 2',
+            'Schwimmrichter 2/3',
+            'Schwimmrichter 3',
+            'Schwimmrichter 3/4',
+            'Schwimmrichter 4',
+            'Schwimmrichter 5',
+            'Schwimmrichter 5/6',
+            'Schwimmrichter 6',
+            'Schwimmrichter (',
+            'Reserve E1',
+            'Zielrichter',
+            'Marshal',
+            'Zeitnehmerobperson',
+            'Zeitnehmer 1',
+            'Zeitnehmer 2',
+            'Zeitnehmer 3',
+            'Zeitnehmer 4',
+            'Zeitnehmer 5',
+            'Zeitnehmer 6',
+            'Zeitnehmer Reserve',
+            'Wenderichter',
+            'Rödelteam-Chef',
+            'Rödelteam',
+            'Läufer',
+            'Rettungsschwimmer',
+        ];
+        function createCell(value, row, classes) {
+            const cell = document.createElement('td');
+            cell.innerText = value;
+            if (classes) {
+                cell.classList.add(...classes.split(' '));
+            }
+            row.append(cell);
+            return cell;
+        }
+
+        function schicht(str) {
+            switch (str) {
+                case 'B':
+                    return 'Ganztägig';
+                case 'F':
+                    return 'Vormittags';
+                case 'S':
+                    return 'Nachmittags';
+            }
+            return '';
+        }
+
+        function bad(b) {
+            switch (b) {
+                case 'J':
+                    return 'Junior*innenbad';
+                case 'S':
+                    return 'Senior*innenbad';
+            }
+            return '';
+        }
+
+        function formatDateGerman(date) {
+            return new Intl.DateTimeFormat('de-DE', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+            }).format(date);
+        }
+
+        let karis = [];
+        let filters = {
+            shift: null,
+            pool: null,
+        }
+        const filtered = () => {
+            return karis
+                .filter(({ 'Schicht Freitag': shift }) => filters.shift == null || filters.shift.includes(shift))
+                .filter(({ 'Bad Samstag': pool }) => filters.pool == null || filters.pool === pool);
+        }
+
+        function sortByVorname() {
+            karis.sort((a, b) => {
+                const vornameA = a.vorname?.toLowerCase();
+                const vornameB = b.vorname?.toLowerCase();
+                const nachnameA = a.nachname?.toLowerCase();
+                const nachnameB = b.nachname?.toLowerCase();
+
+                if (vornameA < vornameB) return -1;
+                if (vornameA > vornameB) return 1;
+
+                if (nachnameA < nachnameB) return -1;
+                if (nachnameA > nachnameB) return 1;
+
+                return 0;
+            });
+        }
+
+        function sortByPosition(field) {
+            const missingPositions = [];
+            const totallyMissingPositions = [];
+            karis.sort((a, b) => {
+                const positionA = a[field];
+                const positionB = b[field];
+
+                if (positionA == null) {
+                    return 9999;
+                }
+                if (positionB == null) {
+                    return -9999;
+                }
+
+                let indexA = sort.indexOf(positionA);
+                if (indexA < 0) {
+                    let copy = a[field];
+                    do {
+                        copy = copy.substring(0, copy.length - 1);
+                        indexA = sort.indexOf(copy);
+                    } while (indexA < 0 && copy.length > 5);
+
+                    if (indexA < 0) {
+                        totallyMissingPositions.push(positionA);
+                    } else {
+                        missingPositions.push([positionA, copy]);
+                    }
+                }
+                let indexB = sort.indexOf(positionB);
+                if (indexB < 0) {
+                    let copy = b[field];
+                    do {
+                        copy = copy.substring(0, copy.length - 1);
+                        indexB = sort.indexOf(copy);
+                    } while (indexB < 0 && copy.length > 5);
+
+                    if (indexB < 0) {
+                        totallyMissingPositions.push(positionB);
+                    } else {
+                        missingPositions.push([positionB, copy]);
+                    }
+                }
+
+                return indexA - indexB;
+            });
+            [...new Set(totallyMissingPositions)].forEach(it => {
+                console.warn(`${it} not in Array`);
+            });
+            [...new Set(missingPositions)].forEach(([position, replacement]) => {
+                console.log(`${position} not in Array, replaced it with ${replacement}`);
+            });
+        }
+
+        function updateList() {
+            tbody.innerHTML = '';
+            filtered().forEach((kr) => {
+                const row = document.createElement('tr');
+                createCell(kr.vorname, row);
+                createCell(kr.nachname, row);
+                createCell(schicht(kr['Schicht Freitag']), row, 'freitag schicht');
+                createCell(kr['Position Freitag'], row, 'freitag position');
+                createCell('', row, 'both');
+                createCell(bad(kr['Bad Samstag']), row, 'samstag bad');
+                createCell(kr['Position Samstag'], row, 'samstag position');
+
+                tbody.append(row);
+            });
+        }
+
+        let scrollInterval = null;
+        let autoScrollActive = false;
+
+        function startAutoScroll(speed = 1, delay = 1000) {
+            if (autoScrollActive) return;
+            autoScrollActive = true;
+
+            scrollInterval = setInterval(() => {
+                window.scrollBy(0, speed);
+
+                const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight;
+
+                if (atBottom) {
+                    clearInterval(scrollInterval);
+
+                    setTimeout(() => {
+                        // Scroll sanft nach oben
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        // Beobachte das Scrollen, bis wir wirklich oben sind
+                        const checkIfAtTop = setInterval(() => {
+                            const nearTop = window.scrollY <= 1;
+
+                            if (nearTop) {
+                                clearInterval(checkIfAtTop);
+                                // Kurze Pause oben, dann neu starten
+                                setTimeout(() => {
+                                    if (autoScrollActive) startAutoScroll(speed, delay);
+                                }, delay);
+                            }
+                        }, 100);
+                    }, delay);
+                }
+            }, 20);
+        }
+
+        function stopAutoScroll() {
+            clearInterval(scrollInterval);
+            autoScrollActive = false;
+        }
+
+        function sortColumn(th) {
+            const key = th.dataset.key;
+            const direction = 'asc';
+            const icon = th.querySelector(".sort-icon");
+
+            if (key === 'vorname') {
+                sortByVorname();
+            } else if (key === 'freitag') {
+                sortByPosition('Position Freitag');
+            } else if (key === 'samstag') {
+                sortByPosition('Position Samstag');
+            }
+
+            document.querySelectorAll(".sort-icon").forEach(i => {
+                i.className = "fa-solid fa-sort sort-icon";
+            });
+            ths.forEach(th => th.classList.remove("active"));
+
+            icon.className = "fa-solid sort-icon";
+            icon.classList.add(direction !== "asc" ? "fa-sort-up" : "fa-sort-down");
+
+            th.classList.add("active");
+
+            updateList();
+        }
+
+        (async function () {
+            const tbody = document.querySelector('#tbody');
+            const response = await fetch('Kampfrichter 2025.json');
+            const lastModified = new Date(response.headers.get('last-modified'));
+            document.querySelector('#date').innerText = formatDateGerman(lastModified);
+            let data = await response.json();
+            karis = data;
+            sortByVorname();
+            updateList();
+
+            ths.forEach(th => {
+                th.addEventListener("click", () => {
+                    sortColumn(th);
+                });
+            });
+
+            document.querySelector('#shift-filter').onclick = (event) => {
+                event.preventDefault();
+
+                document.querySelectorAll('#shift-filter button').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                if (event.target.id === 'all-shifts') {
+                    filters = { pool: null, shift: null, }
+                } else if (event.target.id === 'vormittags') {
+                    filters = { pool: null, shift: ['F', 'B'], };
+                    sortColumn(document.querySelector('th[data-key=freitag]'));
+                } else if (event.target.id === 'nachmittags') {
+                    filters = { pool: null, shift: ['S', 'B'], };
+                    sortColumn(document.querySelector('th[data-key=freitag]'));
+                } else if (event.target.id === 'jun') {
+                    filters = { pool: 'J', shift: null, }
+                    sortColumn(document.querySelector('th[data-key=samstag]'));
+                } else if (event.target.id === 'sen') {
+                    filters = { pool: 'S', shift: null, }
+                    sortColumn(document.querySelector('th[data-key=samstag]'));
+                }
+
+                updateList();
+            };
+        })();
+    </script>
+</body>
+
+</html>
