@@ -134,7 +134,7 @@
             <thead>
                 <tr>
                     <th class="sortable" data-key="vorname">Vorname  <i class="fa-solid fa-sort sort-icon"></i></th>
-                    <th>Nachname</th>
+                    <th class="sortable" data-key="nachname">Nachname  <i class="fa-solid fa-sort sort-icon"></i></th>
                     <th class="freitag schicht">Schicht Freitag</th>
                     <th class="sortable freitag position" data-key="freitag">Position Freitag  <i class="fa-solid fa-sort sort-icon"></i></th>
                     <th class="both"></th>
@@ -269,6 +269,23 @@
             });
         }
 
+        function sortByNachname() {
+            karis.sort((a, b) => {
+                const vornameA = a.vorname?.toLowerCase();
+                const vornameB = b.vorname?.toLowerCase();
+                const nachnameA = a.nachname?.toLowerCase();
+                const nachnameB = b.nachname?.toLowerCase();
+
+                if (nachnameA < nachnameB) return -1;
+                if (nachnameA > nachnameB) return 1;
+
+                if (vornameA < vornameB) return -1;
+                if (vornameA > vornameB) return 1;
+
+                return 0;
+            });
+        }
+
         function sortByPosition(field) {
             const missingPositions = [];
             const totallyMissingPositions = [];
@@ -386,6 +403,8 @@
 
             if (key === 'vorname') {
                 sortByVorname();
+            } else if (key === 'nachname') {
+                sortByNachname();
             } else if (key === 'freitag') {
                 sortByPosition('Position Freitag');
             } else if (key === 'samstag') {
