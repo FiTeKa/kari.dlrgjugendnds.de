@@ -1,0 +1,25 @@
+[
+    { "vorname": "Anna", "nachname": "Müller", "Schicht Freitag": "F", "Position Freitag": "WKL 1", "Bad Samstag": "J", "Position Samstag": "Schwimmrichter 2" },
+    { "vorname": "Lukas", "nachname": "Schmidt", "Schicht Freitag": "S", "Position Freitag": "Starter", "Bad Samstag": "S", "Position Samstag": "WKL" },
+    { "vorname": "Anna", "nachname": "Schneider", "Schicht Freitag": "B", "Position Freitag": "Zeitnehmer 1", "Bad Samstag": "J", "Position Samstag": "Zielrichter" },
+    { "vorname": "Paul", "nachname": "Müller", "Schicht Freitag": "F", "Position Freitag": "Rettungsschwimmer", "Bad Samstag": "S", "Position Samstag": "Zeitnehmer 4" },
+    { "vorname": "Lea", "nachname": "Meier", "Schicht Freitag": "S", "Position Freitag": "Schwimmrichter 3", "Bad Samstag": "J", "Position Samstag": "Marshal" },
+    { "vorname": "Felix", "nachname": "Schneider", "Schicht Freitag": "B", "Position Freitag": "WKL 2", "Bad Samstag": "S", "Position Samstag": "Schiedsgericht" },
+    { "vorname": "Lukas", "nachname": "Mayer", "Schicht Freitag": "F", "Position Freitag": "Leiter Schiedsgericht", "Bad Samstag": "J", "Position Samstag": "Schwimmrichter 1" },
+    { "vorname": "Mia", "nachname": "Schulz", "Schicht Freitag": "S", "Position Freitag": "Protokollführer", "Bad Samstag": "S", "Position Samstag": "Zeitnehmerobperson" },
+    { "vorname": "Paul", "nachname": "Schneider", "Schicht Freitag": "B", "Position Freitag": "Orga", "Bad Samstag": "J", "Position Samstag": "Auswertung" },
+    { "vorname": "Nina", "nachname": "Müller", "Schicht Freitag": "F", "Position Freitag": "WKL 3", "Bad Samstag": "S", "Position Samstag": "Schwimmrichter 3/4" },
+    { "vorname": "Felix", "nachname": "Müller", "Schicht Freitag": "S", "Position Freitag": "Zeitnehmer 2", "Bad Samstag": "J", "Position Samstag": "Zeitnehmer 3" },
+    { "vorname": "Mia", "nachname": "Mayer", "Schicht Freitag": "F", "Position Freitag": "Auswertung", "Bad Samstag": "S", "Position Samstag": "Hospitation gemäß Plan" },
+    { "vorname": "Jonas", "nachname": "Becker", "Schicht Freitag": "B", "Position Freitag": "Schwimmrichter 5", "Bad Samstag": "S", "Position Samstag": "Schwimmrichter 5/6" },
+    { "vorname": "Sophie", "nachname": "Weber", "Schicht Freitag": "S", "Position Freitag": "Zeitnehmer 6", "Bad Samstag": "J", "Position Samstag": "Wenderichter" },
+    { "vorname": "Tim", "nachname": "Fischer", "Schicht Freitag": "F", "Position Freitag": "Zielrichter", "Bad Samstag": "S", "Position Samstag": "Schwimmrichter (Ersatz)" },
+    { "vorname": "Nina", "nachname": "Meier", "Schicht Freitag": "B", "Position Freitag": "Startunterlagenkontrolle", "Bad Samstag": "J", "Position Samstag": "Auswertung (praktische Prüfung)" },
+    { "vorname": "Laura", "nachname": "Hoffmann", "Schicht Freitag": "S", "Position Freitag": "Mitgliedsbuchkontrolle", "Bad Samstag": "S", "Position Samstag": "Rödelteam-Chef" },
+    { "vorname": "Tim", "nachname": "Müller", "Schicht Freitag": "F", "Position Freitag": "Schiedsgericht", "Bad Samstag": "J", "Position Samstag": "Läufer" },
+    { "vorname": "Sophie", "nachname": "Schneider", "Schicht Freitag": "F", "Position Freitag": "Rödelteam", "Bad Samstag": "J", "Position Samstag": "WKL 5" },
+    { "vorname": "Lea", "nachname": "Schmidt", "Schicht Freitag": "S", "Position Freitag": "Zeitnehmer Reserve", "Bad Samstag": "S", "Position Samstag": "Schwimmrichter 4" },
+    { "vorname": "Max", "nachname": "Schulz", "Schicht Freitag": "B", "Position Freitag": "Veranstaltungssprecher", "Bad Samstag": "S", "Position Samstag": "WKL 4" },
+    { "vorname": "Max", "nachname": "Müller", "Schicht Freitag": "F", "Position Freitag": "Veranstaltungsleitung", "Bad Samstag": "J", "Position Samstag": "WKL" }
+  ]
+  
